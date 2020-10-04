@@ -20,19 +20,25 @@ public class UserDAO {
     }
 
     public void update(User user) {
+        entityManager.getTransaction().begin();
         entityManager.merge(user);
+        entityManager.getTransaction().commit();
     }
 
     public void create(User user) {
+        entityManager.getTransaction().begin();
         entityManager.persist(user);
+        entityManager.getTransaction().commit();
     }
 
     public void delete(User user) {
+        entityManager.getTransaction().begin();
         if (!entityManager.contains(user)) {
             user = entityManager.merge(user);
         }
 
         entityManager.remove(user);
+        entityManager.getTransaction().commit();
     }
 
 }
